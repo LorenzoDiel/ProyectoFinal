@@ -6,19 +6,62 @@
 {% block content %}
   {% include 'ComidasSemanales/navbar_comidas.html' %}
 
-  <div class="container">
+  <div class="container justify-content-center align-items-center">
     <h2 class="mb-4">Crear Nueva Comida</h2>
 
     <form method="post" class="card p-4 shadow-sm bg-light">
       {% csrf_token %}
+
+      <h3>Información de la comida</h3>
       <div class="mb-3">
-        {{ form.nombre.label_tag }}
-        {{ form.nombre }}
+        {{ comida_form.nombre.label_tag }}
+        {{ comida_form.nombre }}
       </div>
+
+      <h5>Receta</h5>
+      <div class="mb-3">
+        {{ receta_form.instrucciones.label_tag }}
+        {{ receta_form.instrucciones }}
+      </div>
+      <div class="mb-3">
+        {{ receta_form.tiempo_preparacion.label_tag }}
+        {{ receta_form.tiempo_preparacion }}
+      </div>
+
+      <h5>Ingredientes</h5>
+      {{ formset.management_form }}
+
+      <table class="table table-bordered align-middle" id="tabla-ingredientes">
+        <thead class="table-dark">
+          <tr>
+            <th class="col-ingrediente">Ingrediente</th>
+            <th class="col-cantidad">Cantidad</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for form in formset %}
+            <tr>
+              <td class="col-ingrediente">{{ form.ingrediente }}</td>
+              <td class="col-cantidad">{{ form.cantidad }}</td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm eliminar-ingrediente">
+                  <i class="bi bi-trash"></i> Eliminar
+                </button>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-info mb-3" id="add-ingredient">
+        <i class="bi bi-plus-circle"></i> Agregar ingrediente
+      </button>
       <div class="d-flex justify-content-end">
         <button type="submit" class="btn btn-success me-2 w-auto">Guardar</button>
         <a href="{% url 'ComidasSemanales:index' %}" class="btn btn-secondary">Cancelar</a>
       </div>
     </form>
   </div>
+
+  <script src="{% static 'js/scripts.js' %}"></script>
 {% endblock %}
