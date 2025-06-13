@@ -1,0 +1,24 @@
+{% extends 'Inicio/index.html' %}
+{% load static %}
+
+{% block title %}Crear Comida{% endblock %}
+
+{% block content %}
+  {% include 'ComidasSemanales/navbar_comidas.html' %}
+
+  <div class="container">
+    <h2 class="mb-4">Crear Nueva Comida</h2>
+
+    <form method="post" class="card p-4 shadow-sm bg-light">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.nombre.label_tag }}
+        {{ form.nombre }}
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-success me-2 w-auto">Guardar</button>
+        <a href="{% url 'ComidasSemanales:index' %}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
