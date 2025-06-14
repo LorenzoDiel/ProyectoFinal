@@ -12,9 +12,3 @@ class RegistroForm(ModelForm):
             'usuario': forms.TextInput(attrs={'placeholder': 'Nombre de Usuario'}),
             'contrasena': forms.PasswordInput(attrs={'placeholder': '•••••••••••••'}),
         }
-        help_texts = {
-            'nombre': 'Ingrese su nombre',
-            'apellido': 'Ingrese su apellido',
-            'usuario': 'Ingrese un nombre de usuario único',
-            'contrasena': 'Ingrese una contraseña segura',
-        }
